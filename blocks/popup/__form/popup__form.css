@@ -1,0 +1,13 @@
+.popup__form {
+  font-family: 'Inter', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 54px;
+}
+
+@media screen and (max-width: 425px) {
+  .popup__form {
+    padding-top: 63px;
+  }
+}
