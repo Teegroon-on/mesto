@@ -9,3 +9,12 @@
   line-height: 1.21;
   color: #000000;
 }
+
+.popup__input::placeholder {
+  color: #C4C4C4;
+  font-weight: 400;
+}
+
+.popup__input:focus {
+  outline-offset: 3px;
+}

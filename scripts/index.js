@@ -1,24 +1,32 @@
+//import initialCards from "../utils/initialCards";
+
+let profilePopup = document.querySelector('.popup_type_edit-profile');
 let profileEditBtn = document.querySelector('.profile__button_type_edit');
-let profileCancelBtn = document.querySelector('.popup__cancel-button');
-let profileEditForm = document.querySelector('.popup__form')
-let profileNameInput = document.querySelector('#name-input');
+let profileCancelBtn = profilePopup.querySelector('.popup__cancel-button');
+let profileEditForm = profilePopup.querySelector('.popup__form')
+let profileNameInput = profilePopup.querySelector('#name-input');
 let profileName = document.querySelector('.profile__name');
-let profileJobInput = document.querySelector('#job-input');
+let profileJobInput = profilePopup.querySelector('#job-input');
 let profileJob = document.querySelector('.profile__job');
 let likeButtons = document.querySelectorAll('.card__like-button');
-let profilePopup = document.querySelector('.popup');
+let addCardButton = document.querySelector('.profile__button_type_add');
+let addCardPopup = document.querySelector('.popup_type_add-card');
+let addCardCancelButton = addCardPopup.querySelector('.popup__cancel-button');
 
-function toggleOpenedProfilePopup(){
-  profilePopup.classList.toggle('popup_opened');
+
+function toggleOpenedPopup(popup){
+  popup.classList.toggle('popup_opened');
 }
 
 profileEditBtn.addEventListener('click', function () {
   profileNameInput.value = profileName.textContent;
   profileJobInput.value = profileJob.textContent;
-  toggleOpenedProfilePopup()
+  toggleOpenedPopup(profilePopup)
 });
 
-profileCancelBtn.addEventListener('click', toggleOpenedProfilePopup);
+profileCancelBtn.addEventListener('click', () => toggleOpenedPopup(profilePopup));
+addCardButton.addEventListener('click', () => toggleOpenedPopup(addCardPopup));
+addCardCancelButton.addEventListener('click', () => toggleOpenedPopup(addCardPopup));
 
 profileEditForm.addEventListener('submit', function (e) {
   e.preventDefault()
@@ -26,7 +34,7 @@ profileEditForm.addEventListener('submit', function (e) {
   profileJob.textContent = profileJobInput.value;
   profileNameInput.value = '';
   profileJobInput.value = '';
-  toggleOpenedProfilePopup()
+  toggleOpenedPopup(profilePopup)
 });
 
 for(let i = 0; i < likeButtons.length; i++){
@@ -34,3 +42,5 @@ for(let i = 0; i < likeButtons.length; i++){
     likeButtons[i].classList.toggle('card__like-button_active')
   })
 }
+
+

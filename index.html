@@ -30,96 +30,24 @@
       <button type="button" class="profile__button profile__button_type_add" aria-label="Добавить фотографию"></button>
     </section>
     <section class="cards content__element" aria-label="Фотографии">
-      <article class="card">
-        <img src="./images/element__image/element__karachaevsk.png"
-             alt="Фото Карачаевск"
-             class="card__image">
-        <div class="card__description">
-          <h2 class="card__title">
-            Карачаевск
-          </h2>
-          <div class="card__like">
-            <button type="button"
-                    class="card__like-button"
-                    aria-label="Добавить в избранное"></button>
+      <template id="card">
+        <div class="card">
+          <img src="#"
+               alt="#"
+               class="card__image">
+          <div class="card__description">
+            <h2 class="card__title">#</h2>
+            <div class="card__like">
+              <button type="button"
+                      class="card__like-button"
+                      aria-label="Добавить в избранное"></button>
+            </div>
           </div>
+          <button type="button"
+                  class="card__delete-button"
+                  aria-label="Удалить"></button>
         </div>
-      </article>
-      <div class="card">
-        <img src="./images/element__image/element__elbrus.png"
-             alt="Фото Эльбрус"
-             class="card__image">
-        <div class="card__description">
-          <h2 class="card__title">
-            Гора Эльбрус
-          </h2>
-          <div class="card__like">
-            <button type="button"
-                    class="card__like-button"
-                    aria-label="Добавить в избранное"></button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/element__image/element__dombai.png"
-             alt="Фото Домбай"
-             class="card__image">
-        <div class="card__description">
-          <h2 class="card__title">
-            Домбай
-          </h2>
-          <div class="card__like">
-            <button type="button"
-                    class="card__like-button"
-                    aria-label="Добавить в избранное"></button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/element__image/element__elbrus.png"
-             alt="Фото Эльбрус"
-             class="card__image">
-        <div class="card__description">
-          <h2 class="card__title">
-            Гора Эльбрус
-          </h2>
-          <div class="card__like">
-            <button type="button"
-                    class="card__like-button"
-                    aria-label="Добавить в избранное"></button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/element__image/element__dombai.png"
-             alt="Фото Домбай"
-             class="card__image">
-        <div class="card__description">
-          <h2 class="card__title">
-            Домбай
-          </h2>
-          <div class="card__like">
-            <button type="button"
-                    class="card__like-button"
-                    aria-label="Добавить в избранное"></button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/element__image/element__karachaevsk.png"
-             alt="Фото Карачаевск"
-             class="card__image">
-        <div class="card__description">
-          <h2 class="card__title">
-            Карачаевск
-          </h2>
-          <div class="card__like">
-            <button type="button"
-                    class="card__like-button"
-                    aria-label="Добавить в избранное"></button>
-          </div>
-        </div>
-      </div>
+      </template>
     </section>
   </main>
   <footer class="footer content__element">
@@ -127,29 +55,60 @@
       &copy;&nbsp;2020 Mesto Russia
     </p>
   </footer>
-  <div class="popup">
+  <!-- Popup: Редактировать профиль -->
+  <div class="popup popup_type_edit-profile">
     <div class="popup__container content__element">
       <h2 class="popup__title">
         Редактировать профиль
       </h2>
       <form class="popup__form" name="profileEditPopupForm" method="post">
-          <input type="text"
-                 class="popup__input"
-                 name="name"
-                 id="name-input"
-                 placeholder="Имя"
-          >
-          <input type="text"
-                 class="popup__input"
-                 id="job-input"
-                 name="job"
-                 placeholder="О себе"
-          >
+        <input type="text"
+               class="popup__input"
+               name="name"
+               id="name-input"
+               placeholder="Имя"
+        >
+        <input type="text"
+               class="popup__input"
+               id="job-input"
+               name="job"
+               placeholder="О себе"
+        >
         <button class="popup__save-button" type="submit">
           Сохранить
         </button>
       </form>
       <button class="popup__cancel-button" type="button" aria-label="Закрыть окно"></button>
+    </div>
+  </div>
+  <!-- Popup: Новое место -->
+  <div class="popup popup_type_add-card">
+    <div class="popup__container content__element">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" name="newCardPopupForm" novalidate>
+        <input type="text"
+               class="popup__input popup__input_type_title"
+               id="title-input"
+               placeholder="Название"
+               name="name"
+               minlength="2"
+               maxlength="30"
+               required>
+        <span class="popup__input-error title-input-error"></span>
+        <input type="url"
+               class="popup__input popup__input_type_link"
+               id="link-input"
+               placeholder="Ссылка на картинку"
+               name="link"
+               required>
+        <span class="popup__input-error link-input-error"></span>
+        <button class="popup__save-button"
+                type="submit">Создать
+        </button>
+      </form>
+      <button class="popup__cancel-button"
+              type="button"
+              aria-label="Закрыть окно"></button>
     </div>
   </div>
 </div>
