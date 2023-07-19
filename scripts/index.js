@@ -40,7 +40,7 @@ function generateCard(title, link) {
   const deleteButton = element.querySelector('.card__delete-button');
 
   image.src = link;
-  image.alt = '#';
+  image.alt = title;
   element.querySelector('.card__title').textContent = title;
 
   likeButton.addEventListener('click', () => handleLikeClick(likeButton))
