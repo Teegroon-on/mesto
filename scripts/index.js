@@ -81,7 +81,7 @@ addCardForm.addEventListener('submit', (e) =>{
 profileCancelBtn.addEventListener('click', () => closePopup(profilePopup));
 addCardButton.addEventListener('click', () => openPopup(addCardPopup));
 addCardCancelButton.addEventListener('click', () => closePopup(addCardPopup));
-scaleImagePopupCancelButton.addEventListener('click', () => closePopup(scaleImagePopup))
+scaleImagePopupCancelButton.addEventListener('click', () => closePopup(scaleImagePopup));
 
 profileEditForm.addEventListener('submit', function (e) {
   e.preventDefault()
