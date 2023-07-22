@@ -1,54 +1,75 @@
-function showInputError(formElement, inputElement, errorMessage) {
+function showInputError(formElement, inputElement, errorMessage, classErrorList) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__input_type_error');
+  inputElement.classList.add(classErrorList.classInputError);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__input-error_visible');
+  errorElement.classList.add(classErrorList.classInputErrorVisible);
 }
-function hideInputError(formElement, inputElement){
+
+function hideInputError(formElement, inputElement, classErrorList) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
-  errorElement.classList.remove('popup__input-error_visible');
+  inputElement.classList.remove(classErrorList.classInputError);
+  errorElement.classList.remove(classErrorList.classInputErrorVisible);
   errorElement.textContent = '';
 }
-function checkInputValidity(formElement, inputElement){
+
+function checkInputValidity(formElement, inputElement, classErrorList) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, classErrorList);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, classErrorList);
   }
 }
-function hasInvalidInput(inputList){
+
+function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 }
-function toggleButtonState(inputList, buttonElement){
+
+function toggleButtonState(inputList, buttonElement, className) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__save-button_disabled');
+    buttonElement.setAttribute('disabled', true);
+    buttonElement.classList.add(className);
   } else {
-    buttonElement.classList.remove('popup__save-button_disabled');
+    buttonElement.removeAttribute('disabled', true);
+    buttonElement.classList.remove(className);
   }
 }
-function setEventListeners(formElement){
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('.popup__save-button');
-  toggleButtonState(inputList, buttonElement);
+
+function setEventListeners(formElement, classList) {
+  const inputList = Array.from(formElement.querySelectorAll(classList.classInput));
+  const buttonElement = formElement.querySelector(classList.classSaveBtn);
+  const classErrorList = {
+    classInputError: classList.classInputError,
+    classInputErrorVisible: classList.classInputErrorVisible
+  }
+  toggleButtonState(inputList, buttonElement, classList.classSaveBtnDisabled);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+      checkInputValidity(formElement, inputElement, classErrorList);
+      toggleButtonState(inputList, buttonElement, classList.classSaveBtnDisabled);
     });
   });
 }
-function enableValidation(){
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
+
+function enableValidation(classNames) {
+  const formList = Array.from(document.querySelectorAll(classNames.classForm));
+  const classList = {...classNames};
+  delete classList.classForm;
 
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
       evt.preventDefault();
     });
-    setEventListeners(formElement);
+    setEventListeners(formElement, classList);
   });
 }
 
-enableValidation();
+enableValidation({
+  classForm: 'popup__form',
+  classSaveBtn: 'popup__save-button',
+  classInput: 'popup__input',
+  classSaveBtnDisabled: 'popup__save-button_disabled',
+  classInputError: 'popup__input_type_error',
+  classInputErrorVisible: 'popup__input-error_visible'
+});

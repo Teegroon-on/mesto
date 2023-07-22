@@ -17,21 +17,18 @@ const scaleImagePopup = document.querySelector('.popup_type_image');
 const scaleImagePopupCancelButton = scaleImagePopup.querySelector('.popup__cancel-button');
 function openPopup(popup){
   popup.classList.add('popup_opened');
-  const inputList = Array.from(popup.querySelectorAll('.popup__input'));
-  inputList.forEach((inputElement) =>{
-    inputElement.addEventListener('keydown', (evt) => keyHandle(evt, popup));
-  });
+  document.addEventListener('keydown', escapeKeyHandler);
 }
+
 function closePopup(popup){
   popup.classList.remove('popup_opened');
-  const inputList = Array.from(popup.querySelectorAll('.popup__input'));
-  inputList.forEach((inputElement) => {
-    inputElement.removeEventListener('keydown', (evt) => keyHandle(evt, popup));
-  });
+  document.removeEventListener('keydown', escapeKeyHandler);
 }
+
 function handleLikeClick(element){
   element.classList.toggle('card__like-button_active');
 }
+
 function handleDeleteCard(element){
   element.remove();
 }
@@ -72,41 +69,83 @@ function handleClickOverlay(evt, popup){
     closePopup(popup);
   }
 }
-const keyHandle = (evt, popup) => {
-  console.log(evt.key)
+
+function handleAddCard(evt){
+  evt.preventDefault()
+  addCard(addCardInputName.value, addCardInputLink.value)
+  addCardForm.reset()
+  removeEnterSubmitEventListeners(addCardPopup);
+  closePopup(addCardPopup);
+}
+const enterKeyHandler = (evt) => {
   if (evt.key === 'Enter') {
-    popup.querySelector('.popup__form').submit();
+    handleAddCard(evt);
   }
-  if (evt.key === 'Escape') {
-    closePopup(popup);
+}
+
+const escapeKeyHandler = (evt) => {
+  if(evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened')
+    closePopup(popup)
   }
+}
+
+const setEnterSubmitEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  inputList.forEach((inputElement) =>{
+    inputElement.addEventListener('keydown', (evt) => enterKeyHandler(evt));
+  });
+}
+
+const removeEnterSubmitEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  inputList.forEach((inputElement) => {
+    inputElement.removeEventListener('keydown', (evt) => enterKeyHandler(evt));
+  });
 }
 
 profileEditBtn.addEventListener('click', function () {
   profileNameInput.value = profileName.textContent;
   profileJobInput.value = profileJob.textContent;
+  setEnterSubmitEventListeners(profilePopup);
   openPopup(profilePopup);
 });
-addCardForm.addEventListener('submit', (e) =>{
-  e.preventDefault()
-  addCard(addCardInputName.value, addCardInputLink.value)
-  addCardForm.reset()
-  closePopup(addCardPopup);
-});
+addCardForm.addEventListener('submit', handleAddCard);
 
-profileCancelBtn.addEventListener('click', () => closePopup(profilePopup));
-addCardButton.addEventListener('click', () => openPopup(addCardPopup));
-addCardCancelButton.addEventListener('click', () => closePopup(addCardPopup));
-scaleImagePopupCancelButton.addEventListener('click', () => closePopup(scaleImagePopup));
-profileEditForm.addEventListener('submit', function (e) {
-  e.preventDefault()
-  profileName.textContent = profileNameInput.value;
-  profileJob.textContent = profileJobInput.value;
-  profileEditForm.reset()
+profileCancelBtn.addEventListener('click', () => {
+  removeEnterSubmitEventListeners(profilePopup);
   closePopup(profilePopup);
 });
-profilePopup.addEventListener('mousedown', (evt) => {handleClickOverlay(evt, profilePopup)});
-addCardPopup.addEventListener('mousedown', (evt) => {handleClickOverlay(evt, addCardPopup)});
+addCardButton.addEventListener('click', () => {
+  setEnterSubmitEventListeners(addCardPopup);
+  const isValid = hasInvalidInput(addCardForm)
+  !isValid && addCardForm.reset()
+  openPopup(addCardPopup);
+});
+addCardCancelButton.addEventListener('click', () => {
+  removeEnterSubmitEventListeners(addCardPopup);
+  closePopup(addCardPopup);
+});
+scaleImagePopupCancelButton.addEventListener('click', () => closePopup(scaleImagePopup));
+profileEditForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  profileName.textContent = profileNameInput.value;
+  profileJob.textContent = profileJobInput.value;
+  profileEditForm.reset();
+  removeEnterSubmitEventListeners(profilePopup);
+  closePopup(profilePopup);
+});
+profilePopup.addEventListener('mousedown', (evt) => {
+  removeEnterSubmitEventListeners(profilePopup);
+  handleClickOverlay(evt, profilePopup)
+});;
+addCardPopup.addEventListener('mousedown', (evt) => {
+  removeEnterSubmitEventListeners(addCardPopup);
+  handleClickOverlay(evt, addCardPopup);
+});
+scaleImagePopup.addEventListener('mousedown', (evt) => {
+  handleClickOverlay(evt, scaleImagePopup);
+})
 
 initialRender();
 
