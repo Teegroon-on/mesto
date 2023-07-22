@@ -93,14 +93,14 @@ const escapeKeyHandler = (evt) => {
 const setEnterSubmitEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   inputList.forEach((inputElement) =>{
-    inputElement.addEventListener('keydown', (evt) => enterKeyHandler(evt));
+    inputElement.addEventListener('keydown',  enterKeyHandler);
   });
 }
 
 const removeEnterSubmitEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   inputList.forEach((inputElement) => {
-    inputElement.removeEventListener('keydown', (evt) => enterKeyHandler(evt));
+    inputElement.removeEventListener('keydown', enterKeyHandler);
   });
 }
 
@@ -118,7 +118,7 @@ profileCancelBtn.addEventListener('click', () => {
 });
 addCardButton.addEventListener('click', () => {
   setEnterSubmitEventListeners(addCardPopup);
-  const isValid = hasInvalidInput(addCardForm)
+  const isValid = hasInvalidInput(Array.from(addCardForm.querySelectorAll('.popup__input')))
   !isValid && addCardForm.reset()
   openPopup(addCardPopup);
 });
@@ -138,7 +138,7 @@ profileEditForm.addEventListener('submit', function (e) {
 profilePopup.addEventListener('mousedown', (evt) => {
   removeEnterSubmitEventListeners(profilePopup);
   handleClickOverlay(evt, profilePopup)
-});;
+});
 addCardPopup.addEventListener('mousedown', (evt) => {
   removeEnterSubmitEventListeners(addCardPopup);
   handleClickOverlay(evt, addCardPopup);

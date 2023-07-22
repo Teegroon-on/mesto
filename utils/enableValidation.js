@@ -66,9 +66,9 @@ function enableValidation(classNames) {
 }
 
 enableValidation({
-  classForm: 'popup__form',
-  classSaveBtn: 'popup__save-button',
-  classInput: 'popup__input',
+  classForm: '.popup__form',
+  classSaveBtn: '.popup__save-button',
+  classInput: '.popup__input',
   classSaveBtnDisabled: 'popup__save-button_disabled',
   classInputError: 'popup__input_type_error',
   classInputErrorVisible: 'popup__input-error_visible'
