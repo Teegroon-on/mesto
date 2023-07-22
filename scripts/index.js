@@ -35,35 +35,38 @@ function handleLikeClick(element){
 function handleDeleteCard(element){
   element.remove();
 }
-function generateCard(title, link) {
+
+function generateCard(cardData) {
   const cardTemplate = document.querySelector('#card').content;
   const element = cardTemplate.querySelector('.card').cloneNode(true);
   const image = element.querySelector('.card__image');
   const likeButton = element.querySelector('.card__like-button');
   const deleteButton = element.querySelector('.card__delete-button');
 
-  image.src = link;
-  image.alt = title;
-  element.querySelector('.card__title').textContent = title;
+  image.src = cardData.link;
+  image.alt = cardData.title;
+  element.querySelector('.card__title').textContent = cardData.title;
 
   likeButton.addEventListener('click', () => handleLikeClick(likeButton))
   deleteButton.addEventListener('click', () => handleDeleteCard(element));
   image.addEventListener('click', () => {
-    scaleImagePopup.querySelector('.popup__image').src = link;
-    scaleImagePopup.querySelector('.popup__image-caption').textContent = title;
+    scaleImagePopup.querySelector('.popup__image').src = cardData.link;
+    scaleImagePopup.querySelector('.popup__image').alt = cardData.title;
+    scaleImagePopup.querySelector('.popup__image-caption').textContent = cardData.title;
     openPopup(scaleImagePopup);
   });
 
   return element;
 }
 function addCard(title, link){
-  cardsContainer.prepend(generateCard(title, link));
+  cardsContainer.prepend(generateCard({title, link}));
 }
 function initialRender() {
   initialCards.forEach((item) => {
-     cardsContainer.append(generateCard(item.name, item.link));
+     cardsContainer.append(generateCard({title: item.name, link: item.link}));
   })
 }
+
 function handleClickOverlay(evt, popup){
   if (evt.target === evt.currentTarget){
     closePopup(popup);
@@ -78,6 +81,7 @@ const keyHandle = (evt, popup) => {
     closePopup(popup);
   }
 }
+
 profileEditBtn.addEventListener('click', function () {
   profileNameInput.value = profileName.textContent;
   profileJobInput.value = profileJob.textContent;
@@ -89,6 +93,7 @@ addCardForm.addEventListener('submit', (e) =>{
   addCardForm.reset()
   closePopup(addCardPopup);
 });
+
 profileCancelBtn.addEventListener('click', () => closePopup(profilePopup));
 addCardButton.addEventListener('click', () => openPopup(addCardPopup));
 addCardCancelButton.addEventListener('click', () => closePopup(addCardPopup));
@@ -104,7 +109,5 @@ profilePopup.addEventListener('mousedown', (evt) => {handleClickOverlay(evt, pro
 addCardPopup.addEventListener('mousedown', (evt) => {handleClickOverlay(evt, addCardPopup)});
 
 initialRender();
-
-
 
 
