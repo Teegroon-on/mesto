@@ -61,21 +61,31 @@
       <h2 class="popup__title">
         Редактировать профиль
       </h2>
-      <form class="popup__form" name="profileEditPopupForm" method="post">
-        <input type="text"
-               class="popup__input"
-               name="name"
-               id="name-input"
-               placeholder="Имя"
-               required
-        >
-        <input type="text"
-               class="popup__input"
-               id="job-input"
-               name="job"
-               placeholder="О себе"
-               required
-        >
+      <form class="popup__form" name="profileEditPopupForm" method="post" novalidate>
+        <label class="popup__field">
+          <input
+            type="text"
+            class="popup__input popup__input_type_name"
+            placeholder="Имя"
+            name="name"
+            id="name-input"
+            minlength="2"
+            maxlength="40"
+            required>
+          <span class="popup__input-error name-input-error"></span>
+        </label>
+        <label class="popup__field">
+          <input
+            type="text"
+            class="popup__input popup__input_type_job"
+            id="job-input"
+            placeholder="Профессия"
+            name="job"
+            minlength="2"
+            maxlength="200"
+            required>
+          <span class="popup__input-error job-input-error"></span>
+        </label>
         <button class="popup__save-button" type="submit">
           Сохранить
         </button>
@@ -88,22 +98,28 @@
     <div class="popup__container content__element">
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form" name="newCardPopupForm" novalidate>
-        <input type="text"
-               class="popup__input popup__input_type_title"
-               id="title-input"
-               placeholder="Название"
-               name="name"
-               minlength="2"
-               maxlength="30"
-               required>
-        <span class="popup__input-error title-input-error"></span>
-        <input type="url"
-               class="popup__input popup__input_type_link"
-               id="link-input"
-               placeholder="Ссылка на картинку"
-               name="link"
-               required>
-        <span class="popup__input-error link-input-error"></span>
+        <label class="popup__field">
+          <input
+            type="text"
+            class="popup__input popup__input_type_title"
+            id="title-input"
+            placeholder="Название"
+            name="name"
+            minlength="2"
+            maxlength="30"
+            required>
+          <span class="popup__input-error title-input-error"></span>
+        </label>
+        <label class="popup__field">
+          <input
+            type="url"
+            class="popup__input popup__input_type_link"
+            id="link-input"
+            placeholder="Ссылка на картинку"
+            name="link"
+            required>
+          <span class="popup__input-error link-input-error"></span>
+        </label>
         <button class="popup__save-button"
                 type="submit">Создать
         </button>
@@ -129,6 +145,7 @@
   </div>
 </div>
 <script src="./utils/initialCards.js"></script>
+<script src="./utils/enableValidation.js"></script>
 <script src="./scripts/index.js"></script>
 </body>
 </html>
