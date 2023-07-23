@@ -36,6 +36,19 @@ function toggleButtonState(inputList, buttonElement, className) {
   }
 }
 
+function revalidateForm(formElement, classList){
+  const inputList = Array.from(formElement.querySelectorAll(classList.classInput));
+  const buttonElement = formElement.querySelector(classList.classSaveBtn);
+  const classErrorList = {
+    classInputError: classList.classInputError,
+    classInputErrorVisible: classList.classInputErrorVisible
+  }
+  toggleButtonState(inputList, buttonElement, classList.classSaveBtnDisabled);
+  inputList.forEach((inputElement) => {
+    checkInputValidity(formElement, inputElement, classErrorList);
+  })
+}
+
 function setEventListeners(formElement, classList) {
   const inputList = Array.from(formElement.querySelectorAll(classList.classInput));
   const buttonElement = formElement.querySelector(classList.classSaveBtn);

@@ -15,21 +15,30 @@ const addCardCancelButton = addCardPopup.querySelector('.popup__cancel-button');
 const cardsContainer = document.querySelector('.cards');
 const scaleImagePopup = document.querySelector('.popup_type_image');
 const scaleImagePopupCancelButton = scaleImagePopup.querySelector('.popup__cancel-button');
-function openPopup(popup){
+
+const formClassNames = {
+  classSaveBtn: '.popup__save-button',
+  classInput: '.popup__input',
+  classSaveBtnDisabled: 'popup__save-button_disabled',
+  classInputError: 'popup__input_type_error',
+  classInputErrorVisible: 'popup__input-error_visible'
+}
+
+function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', escapeKeyHandler);
 }
 
-function closePopup(popup){
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', escapeKeyHandler);
 }
 
-function handleLikeClick(element){
+function handleLikeClick(element) {
   element.classList.toggle('card__like-button_active');
 }
 
-function handleDeleteCard(element){
+function handleDeleteCard(element) {
   element.remove();
 }
 
@@ -55,28 +64,32 @@ function generateCard(cardData) {
 
   return element;
 }
-function addCard(title, link){
+
+function addCard(title, link) {
   cardsContainer.prepend(generateCard({title, link}));
 }
+
 function initialRender() {
   initialCards.forEach((item) => {
-     cardsContainer.append(generateCard({title: item.name, link: item.link}));
+    cardsContainer.append(generateCard({title: item.name, link: item.link}));
   })
 }
 
-function handleClickOverlay(evt, popup){
-  if (evt.target === evt.currentTarget){
+function handleClickOverlay(evt, popup) {
+  if (evt.target === evt.currentTarget) {
     closePopup(popup);
   }
 }
 
-function handleAddCard(evt){
+function handleAddCard(evt) {
   evt.preventDefault()
   addCard(addCardInputName.value, addCardInputLink.value)
   addCardForm.reset()
+  revalidateForm(addCardForm, formClassNames)
   removeEnterSubmitEventListeners(addCardPopup);
   closePopup(addCardPopup);
 }
+
 const enterKeyHandler = (evt) => {
   if (evt.key === 'Enter') {
     handleAddCard(evt);
@@ -84,7 +97,7 @@ const enterKeyHandler = (evt) => {
 }
 
 const escapeKeyHandler = (evt) => {
-  if(evt.key === 'Escape') {
+  if (evt.key === 'Escape') {
     const popup = document.querySelector('.popup_opened')
     closePopup(popup)
   }
@@ -92,8 +105,8 @@ const escapeKeyHandler = (evt) => {
 
 const setEnterSubmitEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  inputList.forEach((inputElement) =>{
-    inputElement.addEventListener('keydown',  enterKeyHandler);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('keydown', enterKeyHandler);
   });
 }
 
@@ -108,6 +121,7 @@ profileEditBtn.addEventListener('click', function () {
   profileNameInput.value = profileName.textContent;
   profileJobInput.value = profileJob.textContent;
   setEnterSubmitEventListeners(profilePopup);
+  revalidateForm(profileEditForm, formClassNames)
   openPopup(profilePopup);
 });
 addCardForm.addEventListener('submit', handleAddCard);
@@ -119,7 +133,8 @@ profileCancelBtn.addEventListener('click', () => {
 addCardButton.addEventListener('click', () => {
   setEnterSubmitEventListeners(addCardPopup);
   const isValid = hasInvalidInput(Array.from(addCardForm.querySelectorAll('.popup__input')))
-  !isValid && addCardForm.reset()
+  isValid && addCardForm.reset()
+  revalidateForm(addCardForm, formClassNames)
   openPopup(addCardPopup);
 });
 addCardCancelButton.addEventListener('click', () => {
