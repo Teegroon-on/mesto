@@ -26,11 +26,6 @@ const cards = [];
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', escapeKeyHandler);
-  const formElement = popup.querySelector(formSelectors.formSelector);
-  if(formElement){
-    formValidators[formElement.getAttribute('name')].hideErrors();
-    formValidators[formElement.getAttribute('name')].disableButtonState();
-  }
 }
 
 function closePopup(popup) {
@@ -94,23 +89,20 @@ const escapeKeyHandler = (evt) => {
 }
 
 const setEnterSubmitEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('keydown', enterKeyHandler);
-  });
+    formElement.addEventListener('keydown', enterKeyHandler);
 }
 
 const removeEnterSubmitEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  inputList.forEach((inputElement) => {
-    inputElement.removeEventListener('keydown', enterKeyHandler);
-  });
+    formElement.removeEventListener('keydown', enterKeyHandler);
 }
 
 profileEditBtn.addEventListener('click', function () {
   profileNameInput.value = profileName.textContent;
   profileJobInput.value = profileJob.textContent;
   setEnterSubmitEventListeners(profilePopup);
+  const formElement = profilePopup.querySelector(formSelectors.formSelector);
+    formValidators[formElement.getAttribute('name')].hideErrors();
+    formValidators[formElement.getAttribute('name')].disableButtonState();
   openPopup(profilePopup);
 });
 addCardForm.addEventListener('submit', handleAddCard);
@@ -121,6 +113,9 @@ profileCancelBtn.addEventListener('click', () => {
 });
 addCardButton.addEventListener('click', () => {
   setEnterSubmitEventListeners(addCardPopup);
+  const formElement = addCardPopup.querySelector(formSelectors.formSelector);
+  formValidators[formElement.getAttribute('name')].hideErrors();
+  formValidators[formElement.getAttribute('name')].disableButtonState();
   openPopup(addCardPopup);
 });
 addCardCancelButton.addEventListener('click', () => {
