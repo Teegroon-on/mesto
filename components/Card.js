@@ -9,8 +9,7 @@ export default class Card {
 
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._likeButton = this._element.querySelector('.card__like-button');
-    this._cardImage = this._element.querySelector('.card__image');
+
   }
 
   _getTemplate() {
@@ -23,6 +22,8 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    this._likeButton = this._element.querySelector('.card__like-button');
+    this._cardImage = this._element.querySelector('.card__image');
 
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;

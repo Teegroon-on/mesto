@@ -1,7 +1,7 @@
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import {initialCards} from "../utils/initialCards.js";
-import {formSelectors,cardTemplateSelector} from "../utils/constants.js";
+import {formSelectors, cardTemplateSelector} from "../utils/constants.js";
 
 const profilePopup = document.querySelector('.popup_type_edit-profile');
 const profileEditBtn = document.querySelector('.profile__button_type_edit');
@@ -19,6 +19,8 @@ const addCardInputLink = addCardPopup.querySelector('#link-input');
 const addCardCancelButton = addCardPopup.querySelector('.popup__cancel-button');
 const cardsContainer = document.querySelector('.cards');
 const scaleImagePopup = document.querySelector('.popup_type_image');
+const scaleImagePopupImage = scaleImagePopup.querySelector('.popup__image');
+const scaleImagePopupCaption = scaleImagePopup.querySelector('.popup__image-caption');
 const scaleImagePopupCancelButton = scaleImagePopup.querySelector('.popup__cancel-button');
 const formValidators = {};
 const cards = [];
@@ -33,7 +35,7 @@ function closePopup(popup) {
   document.removeEventListener('keydown', escapeKeyHandler);
 }
 
-function validateForms (formSelectors) {
+function validateForms(formSelectors) {
   const formElements = Array.from(document.querySelectorAll(formSelectors.formSelector));
   formElements.forEach(formElement => {
     const form = new FormValidator(formSelectors, formElement);
@@ -49,10 +51,10 @@ function renderCard(data) {
 }
 
 function handleCardClick(imageLink, text) {
-    scaleImagePopup.querySelector('.popup__image').src = imageLink;
-    scaleImagePopup.querySelector('.popup__image').alt = text;
-    scaleImagePopup.querySelector('.popup__image-caption').textContent = text;
-    openPopup(scaleImagePopup);
+  scaleImagePopupImage.src = imageLink;
+  scaleImagePopupImage.alt = text;
+  scaleImagePopupCaption.textContent = text;
+  openPopup(scaleImagePopup);
 }
 
 function initialRender() {
@@ -65,19 +67,12 @@ function handleAddCard(evt) {
   evt.preventDefault()
   cardsContainer.prepend(renderCard({name: addCardInputName.value, link: addCardInputLink.value}))
   addCardForm.reset()
-  removeEnterSubmitEventListeners(addCardPopup);
   closePopup(addCardPopup);
 }
 
 function handleClickOverlay(evt, popup) {
   if (evt.target === evt.currentTarget) {
     closePopup(popup);
-  }
-}
-
-const enterKeyHandler = (evt) => {
-  if (evt.key === 'Enter') {
-    handleAddCard(evt);
   }
 }
 
@@ -88,38 +83,26 @@ const escapeKeyHandler = (evt) => {
   }
 }
 
-const setEnterSubmitEventListeners = (formElement) => {
-    formElement.addEventListener('keydown', enterKeyHandler);
-}
-
-const removeEnterSubmitEventListeners = (formElement) => {
-    formElement.removeEventListener('keydown', enterKeyHandler);
-}
-
 profileEditBtn.addEventListener('click', function () {
   profileNameInput.value = profileName.textContent;
-  profileJobInput.value = profileJob.textContent;
-  setEnterSubmitEventListeners(profilePopup);
+  profileJobInput.value = profileJob.textContent;;
   const formElement = profilePopup.querySelector(formSelectors.formSelector);
-    formValidators[formElement.getAttribute('name')].hideErrors();
-    formValidators[formElement.getAttribute('name')].disableButtonState();
+  formValidators[formElement.getAttribute('name')].hideErrors();
+  formValidators[formElement.getAttribute('name')].disableButtonState();
   openPopup(profilePopup);
 });
 addCardForm.addEventListener('submit', handleAddCard);
 
 profileCancelBtn.addEventListener('click', () => {
-  removeEnterSubmitEventListeners(profilePopup);
   closePopup(profilePopup);
 });
 addCardButton.addEventListener('click', () => {
-  setEnterSubmitEventListeners(addCardPopup);
   const formElement = addCardPopup.querySelector(formSelectors.formSelector);
   formValidators[formElement.getAttribute('name')].hideErrors();
   formValidators[formElement.getAttribute('name')].disableButtonState();
   openPopup(addCardPopup);
 });
 addCardCancelButton.addEventListener('click', () => {
-  removeEnterSubmitEventListeners(addCardPopup);
   closePopup(addCardPopup);
 });
 scaleImagePopupCancelButton.addEventListener('click', () => closePopup(scaleImagePopup));
@@ -128,15 +111,12 @@ profileEditForm.addEventListener('submit', function (e) {
   profileName.textContent = profileNameInput.value;
   profileJob.textContent = profileJobInput.value;
   profileEditForm.reset();
-  removeEnterSubmitEventListeners(profilePopup);
   closePopup(profilePopup);
 });
 profilePopup.addEventListener('mousedown', (evt) => {
-  removeEnterSubmitEventListeners(profilePopup);
   handleClickOverlay(evt, profilePopup)
 });
 addCardPopup.addEventListener('mousedown', (evt) => {
-  removeEnterSubmitEventListeners(addCardPopup);
   handleClickOverlay(evt, addCardPopup);
 });
 scaleImagePopup.addEventListener('mousedown', (evt) => {
