@@ -9,25 +9,14 @@ import {initialCards} from "../utils/initialCards.js";
 import {
   cardTemplateSelector,
   formSelectors,
-  profilePopupElement,
   profileEditBtn,
   profileNameInput,
   profileJobInput,
   addCardButton,
-  addCardPopupElement,
   formEditProfileElement,
   formAddCardElement
 } from "../utils/constants.js";
 
-
-/*const profilePopupElement = document.querySelector('.popup_type_edit-profile');
-const profileEditBtn = document.querySelector('.profile__button_type_edit');
-const profileNameInput = profilePopupElement.querySelector('#name-input');
-const profileJobInput = profilePopupElement.querySelector('#job-input');
-const addCardButton = document.querySelector('.profile__button_type_add');
-const addCardPopupElement = document.querySelector('.popup_type_add-card');
-const formEditProfileElement = profilePopupElement.querySelector(formSelectors.formSelector);
-const formAddCardElement = addCardPopupElement.querySelector(formSelectors.formSelector);*/
 
 const formValidators = {};
 
