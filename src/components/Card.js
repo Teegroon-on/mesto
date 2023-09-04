@@ -8,7 +8,6 @@ export default class Card {
     this._isLiked = false;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-
   }
 
   _getTemplate() {
@@ -28,22 +27,20 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._element.querySelector('.card__title').textContent = this._name;
 
-    this._setEventlisteners();
+    this._setEventListeners();
 
     return this._element;
   }
 
-  _setEventlisteners() {
+  _setEventListeners() {
+    this._likeButton.addEventListener('click', () => this._handleLikeCard());
 
-    this._likeButton.addEventListener('click', () => this._likeCard());
-
-    this._cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._name));
+    this._cardImage.addEventListener('click', () => this._handleCardClick(this._name, this._link));
 
     this._element.querySelector('.card__delete-button').addEventListener('click', () => this._handleDelete());
   }
 
-  _likeCard() {
-
+  _handleLikeCard() {
     if (this._isLiked) {
       this._likeButton.classList.remove('card__like-button_active');
       this._isLiked = false;
