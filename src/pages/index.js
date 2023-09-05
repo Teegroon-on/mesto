@@ -20,15 +20,15 @@ import {
 
 const formValidators = {};
 
-const User = new UserInfo('.profile__name', '.profile__job')
+const user = new UserInfo('.profile__name', '.profile__job')
 
 const editProfilePopup = new PopupWithForm({
   popupSelector: '.popup_type_edit-profile',
   handleFormSubmit: (dataForm) => {
     editProfilePopup.setIsLoading(true);
 
-    User.setUserInfo({
-      name: dataForm.name,
+    user.setUserInfo({
+      username: dataForm.name,
       job: dataForm.job
     })
 
@@ -84,23 +84,24 @@ function renderInitialCards() {
   cardsSection.renderItems(initialCards)
 }
 
-function handleEditBtn() {
-  profileNameInput.value = User.getUserInfo().name;
-  profileJobInput.value = User.getUserInfo().job;
+function handleEditBtnClick() {
+  const userInfo = user.getUserInfo()
+  profileNameInput.value = userInfo.username;
+  profileJobInput.value = userInfo.job;
 
   formValidators[formEditProfileElement.getAttribute('name')].hideErrors();
   formValidators[formEditProfileElement.getAttribute('name')].disableButtonState();
   editProfilePopup.open()
 }
 
-function handleAddCardBtn() {
+function handleAddCardBtnClick() {
   formValidators[formAddCardElement.getAttribute('name')].hideErrors();
   formValidators[formAddCardElement.getAttribute('name')].disableButtonState();
   addCardPopup.open()
 }
 
-profileEditBtn.addEventListener('click', handleEditBtn);
-addCardButton.addEventListener('click', handleAddCardBtn);
+profileEditBtn.addEventListener('click', handleEditBtnClick);
+addCardButton.addEventListener('click', handleAddCardBtnClick);
 
 
 renderInitialCards();
