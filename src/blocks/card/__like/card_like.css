@@ -1,8 +1,6 @@
 .card__like {
-  min-width: 22px;
-  height: 35px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
 }
