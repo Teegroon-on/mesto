@@ -34,8 +34,8 @@ const api = new Api({
 let userId;
 
 const user = new UserInfo({
-  username: '.profile__name',
-  job: '.profile__job',
+  name: '.profile__name',
+  about: '.profile__job',
   avatar: '.profile__avatar'
 });
 
@@ -43,7 +43,6 @@ const editProfilePopup = new PopupWithForm({
   popupSelector: '.popup_type_edit-profile',
   handleFormSubmit: (dataForm) => {
     editProfilePopup.setIsLoading(true);
-
     api.editUserInfo(dataForm)
       .then((dataForm) => {
         user.setUserInfo(dataForm);
@@ -55,7 +54,6 @@ const editProfilePopup = new PopupWithForm({
       .finally(() => {
         editProfilePopup.setIsLoading(false);
       });
-    editProfilePopup.close();
   }
 });
 editProfilePopup.setEventListeners();
@@ -66,7 +64,7 @@ const editAvatarPopup = new PopupWithForm({
     editAvatarPopup.setIsLoading(true);
     api.editAvatar(data)
       .then((data) => {
-        avatar.src = data.avatar;
+        user.setUserAvatar(data.avatar)
         editAvatarPopup.close();
       })
       .catch((err) => {
@@ -171,8 +169,8 @@ viewImagePopup.setEventListeners();
 
 function handleEditBtnClick() {
   const userInfo = user.getUserInfo()
-  profileNameInput.value = userInfo.username;
-  profileJobInput.value = userInfo.job;
+  profileNameInput.value = userInfo.name;
+  profileJobInput.value = userInfo.about;
 
   formValidators[formEditProfileElement.getAttribute('name')].hideErrors();
   formValidators[formEditProfileElement.getAttribute('name')].disableButtonState();

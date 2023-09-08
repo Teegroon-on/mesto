@@ -14,7 +14,7 @@ export default class PopupWithConfirmation extends Popup {
   // удаление карточки по нажатию на submit
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('click', (event) => {
+    this._form.addEventListener('submit', (event) => {
       event.preventDefault();
       this._handleSubmit();
     });
