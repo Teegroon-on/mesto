@@ -7,7 +7,9 @@
 .header{border-bottom:1px solid rgba(84,84,84,.7);padding:45px 0 37px}@media screen and (max-width:425px){.header{padding:28px 27px 27px}}
 .header__logo{height:33px;-o-object-fit:contain;object-fit:contain;-o-object-position:left;object-position:left;width:142px}@media screen and (max-width:425px){.header__logo{height:25px;width:104px}}
 .profile{align-items:center;display:flex;gap:26px;justify-content:space-between;padding:42px 0 50px}@media screen and (max-width:768px){.profile{flex-direction:column}}@media screen and (max-width:425px){.profile{padding-bottom:36px}}
+.profile__image-container{border-radius:50%;height:120px;overflow:hidden;position:relative;width:120px}
 .profile__avatar{border-radius:50%;height:120px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;overflow:hidden;position:relative;width:120px}
+.profile__avatar-button{background-color:rgba(0,0,0,.8);background-image:url(686ec1de24fcfb5046fa.svg);background-position:50%;background-repeat:no-repeat;background-size:26px;border:none;border-radius:50%;cursor:pointer;display:block;height:100%;left:0;margin:0;opacity:0;position:absolute;top:0;transition:opacity .2s;width:100%}.profile__avatar-button:hover{opacity:1}
 .profile__button{background-color:transparent;background-position:50%;background-repeat:no-repeat;border:1px solid #fff;box-sizing:border-box;cursor:pointer;flex-shrink:0;transition:opacity .2s}.profile__button:hover{opacity:.6}
 .profile__button_type_add{background-image:url(954d1ecf00812f229770.svg);background-size:22px 22px;border-radius:2px;border-width:2px;height:50px;width:150px}@media screen and (max-width:768px){.profile__button_type_add{width:100%}}@media screen and (max-width:425px){.profile__button_type_add{background-size:16px 16px}}
 .profile__button_type_edit{background-image:url(686ec1de24fcfb5046fa.svg);background-size:42% 42%;height:24px;width:24px}@media screen and (max-width:425px){.profile__button_type_edit{height:18px;width:18px}}
@@ -20,8 +22,9 @@
 .card__title{color:#000;font-size:24px;font-style:normal;font-weight:900;line-height:1.21;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .card__image{background-color:#111;height:282px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;width:100%}
 .card__description{align-items:center;display:flex;justify-content:space-between;padding:25px 21px 26px}
-.card__like{display:flex;flex-direction:column;flex-shrink:0;height:35px;justify-content:center;min-width:22px}
-.card__like-button{background-color:transparent;background-image:url(77ea1611be45fdeca1cc.svg);background-position:50%;background-repeat:no-repeat;background-size:contain;border:0;cursor:pointer;height:19px;transition:opacity .2s;width:22px}.card__like-button:hover{opacity:.5}
+.card__like{display:flex;flex-direction:column;margin:0;padding:0}
+.card__like-button{background-image:url(77ea1611be45fdeca1cc.svg);background-repeat:no-repeat;background-size:contain;border:none;cursor:pointer;display:block;height:19px;margin:0 0 3px;padding:0;transition:.3s ease;width:22px}.card__like-button:hover{opacity:.5}
+.card__like-number{color:#000;display:block;font-size:13px;font-style:normal;font-weight:400;height:13px;line-height:1.23;text-align:center}
 .card__like-button_active{background-image:url(08af6fbb37d19d4aa333.svg)}
 .card__delete-button{background-color:transparent;background-image:url(ce3b64935accf9b8212e.svg);background-position:50%;background-repeat:no-repeat;background-size:contain;border:0;cursor:pointer;height:19px;position:absolute;right:20px;top:20px;transition:opacity .2s;width:18px}.card__delete-button:hover{opacity:.6}
 .footer{padding:67px 0 60px}@media screen and (max-width:435px){.footer{padding:48px 0 36px}}
